@@ -1,0 +1,4 @@
+{
+  "src/**/*.{ts,json,scss,html}": ["prettier --write"],
+    "src/**/*.{ts,json}": ["ng lint"]
+}
