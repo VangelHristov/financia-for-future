@@ -2,8 +2,14 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false
+import { IEnvironment } from '../app/contracts/i-environment';
+import { LogLevel } from '../app/enumerations/log-level';
+
+export const environment: IEnvironment = {
+  production: false,
+  apiHost: 'http://localhost:3001',
+  logLevel: LogLevel.Debug,
+  enableDebugTools: true,
 };
 
 /*
