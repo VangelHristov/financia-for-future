@@ -1,4 +1,4 @@
-import { IEnvironment } from '../app/contracts/i-environment';
+import { IEnvironment } from '../app/contracts/environment';
 import { LogLevel } from '../app/enumerations/log-level';
 
 export const environment: IEnvironment = {

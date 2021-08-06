@@ -5,4 +5,5 @@ export interface IUser {
   lastName: string;
   streetAddress: string;
   balance: number;
+  createdAd: Date;
 }

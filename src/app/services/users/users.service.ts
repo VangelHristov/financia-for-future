@@ -1,8 +1,11 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { shareReplay, tap } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { IPagedResource } from '../../contracts/paged-resource';
+import { IUser } from '../../contracts/user';
+import { setPage } from '../../helpers/set-page';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +15,14 @@ export class UsersService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getUsers(limit = 10, page = 1): Observable<Array<any>> {
-    return this.httpClient.get<Array<any>>(this.apiUrl, {
-      params: { _limit: limit, _page: page },
-    });
+  getUsers(limit = 10, page = 1): Observable<IPagedResource<IUser>> {
+    return this.httpClient
+      .get<Array<IUser>>(this.apiUrl, {
+        params: { _limit: limit, _page: page },
+        observe: 'response',
+      })
+      .pipe(
+        map((response: HttpResponse<IUser[]>) => setPage(response, limit, page))
+      );
   }
 }
