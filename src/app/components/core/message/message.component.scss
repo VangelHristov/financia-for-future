@@ -1,0 +1,21 @@
+p {
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+
+  i,
+  span {
+    margin-left: 5px;
+  }
+
+  span {
+    font-style: italic;
+  }
+}
+
+.warning {
+  border-left: 4px solid #f55247;
+}
+
+.success {
+  border-left: 4px solid #3f51b5;
+}

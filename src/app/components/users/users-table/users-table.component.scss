@@ -1,0 +1,13 @@
+:host {
+  table.mat-table {
+    width: 100%;
+  }
+
+  .mat-column-select {
+    overflow: initial;
+  }
+
+  tr {
+    cursor: pointer;
+  }
+}

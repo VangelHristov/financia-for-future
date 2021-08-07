@@ -1,6 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { IPagedResource } from '../../contracts/paged-resource';
@@ -24,5 +24,9 @@ export class UsersService {
       .pipe(
         map((response: HttpResponse<IUser[]>) => setPage(response, limit, page))
       );
+  }
+
+  getById(id: string): Observable<IUser> {
+    return this.httpClient.get<IUser>(`${this.apiUrl}/${id}`);
   }
 }

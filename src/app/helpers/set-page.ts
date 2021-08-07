@@ -1,5 +1,4 @@
 import { HttpResponse } from '@angular/common/http';
-import { IPageable } from '../contracts/pageable';
 import { IPagedResource } from '../contracts/paged-resource';
 
 export const setPage = (
