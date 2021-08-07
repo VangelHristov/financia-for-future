@@ -21,12 +21,12 @@ export class UsersComponent implements OnInit, OnDestroy {
   private dispose$ = new Subject<void>();
 
   constructor(
-    private appState: StoreService,
+    private storeService: StoreService,
     private changeDetector: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    this.appState.sideNavOpened$
+    this.storeService.sideNavOpened$
       .pipe(takeUntil(this.dispose$))
       .subscribe((value) => {
         this.sideNavOpened = value;
@@ -37,5 +37,9 @@ export class UsersComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.dispose$.next();
     this.dispose$.complete();
+  }
+
+  hideSideNav(): void {
+    this.storeService.setSideNavOpened(false);
   }
 }

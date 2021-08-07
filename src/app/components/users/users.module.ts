@@ -16,9 +16,15 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersTableComponent } from './users-table/users-table.component';
 import { UsersComponent } from './users.component';
+import { PrivateInfoComponent } from './private-info/private-info.component';
 
 @NgModule({
-  declarations: [UsersTableComponent, UserDetailsComponent, UsersComponent],
+  declarations: [
+    UsersTableComponent,
+    UserDetailsComponent,
+    UsersComponent,
+    PrivateInfoComponent,
+  ],
   imports: [
     BrowserModule,
     UsersRoutingModule,

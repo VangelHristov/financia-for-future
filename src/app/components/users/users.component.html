@@ -1,8 +1,9 @@
 <mat-sidenav-container>
-    <mat-sidenav-content>
-        <app-users-table></app-users-table>
-    </mat-sidenav-content>
-    <mat-sidenav mode="side" [opened]="sideNavOpened" position="end" fixedViewport>
-        <router-outlet></router-outlet>
-    </mat-sidenav>
+  <mat-sidenav-content>
+    <app-users-table></app-users-table>
+  </mat-sidenav-content>
+  <mat-sidenav mode="side" [opened]="sideNavOpened" position="end" fixedViewport class="side-nav">
+    <i class="fa fa-times close-btn" aria-hidden="true" (click)="hideSideNav()"></i>
+    <router-outlet></router-outlet>
+  </mat-sidenav>
 </mat-sidenav-container>

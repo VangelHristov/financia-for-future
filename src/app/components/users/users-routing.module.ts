@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PrivateInfoComponent } from './private-info/private-info.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UsersComponent } from './users.component';
 
@@ -16,6 +17,12 @@ const routes: Routes = [
       {
         path: ':id/details',
         component: UserDetailsComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: ':id/private-info',
+        component: PrivateInfoComponent,
+        pathMatch: 'full',
       },
     ],
   },

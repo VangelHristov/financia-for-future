@@ -1,19 +1,20 @@
 <div class="user-details">
-    <i class="fa fa-times close-btn" aria-hidden="true" (click)="hideSideNav()"></i>
-    <h2>{{user?.firstName}} {{user?.middleName}} {{user?.lastName}}</h2>
-    <p>Member since: {{user?.createdAt}}</p>
-    <p>Balance: {{user?.balance | currency}}</p>
-    <div>
-        <h3>Credit cards:</h3>
-        <ng-container *ngIf="!cards || cards.length < 1; else cardsList">
-            <app-message variant="warning">{{user?.firstName}} does not have any credit cards.</app-message>
-        </ng-container>
-        <ng-template #cardsList>
-            <ul>
-                <li *ngFor="let card of cards">{{card.type}}: {{card.cardNumber}}</li>
-            </ul>
-        </ng-template>
-    </div>
+  <h2>{{user?.firstName}} {{user?.middleName}} {{user?.lastName}}</h2>
+  <p>Member since: {{user?.createdAt}}</p>
+  <p>Balance: {{user?.balance | currency}}</p>
+  <div>
+    <h3>Credit cards:</h3>
+    <ng-container *ngIf="!cards || cards.length < 1; else cardsList">
+      <app-message variant="warning">{{user?.firstName}} does not have any credit cards.</app-message>
+    </ng-container>
+    <ng-template #cardsList>
+      <ul>
+        <li *ngFor="let card of cards">{{card.type}}: {{card.cardNumber}}</li>
+      </ul>
+    </ng-template>
+
+    <button mat-raised-button color="primary" (click)="showPrivateInfo()">Private Info</button>
+  </div>
 </div>
 
 

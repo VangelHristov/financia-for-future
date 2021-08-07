@@ -7,7 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -41,7 +41,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     private usersService: UsersService,
     private storeService: StoreService,
     private changeDetector: ChangeDetectorRef,
-    private creditCardsService: CreditCardService
+    private creditCardsService: CreditCardService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,7 +71,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     this.dispose$.complete();
   }
 
-  hideSideNav(): void {
-    this.storeService.setSideNavOpened(false);
+  showPrivateInfo(): void {
+    this.router.navigate(['/users', this.user.id, 'private-info']).catch();
   }
 }
