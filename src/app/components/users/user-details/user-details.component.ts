@@ -8,8 +8,9 @@ import {
   Output,
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { EMPTY, Subject } from 'rxjs';
 import {
+  catchError,
   distinctUntilChanged,
   flatMap,
   switchMap,
@@ -19,6 +20,7 @@ import {
 import { ICreditCard } from '../../../contracts/credit-card';
 import { IUser } from '../../../contracts/user';
 import { CreditCardService } from '../../../services/credit-card/credit-card.service';
+import { ErrorHandlingService } from '../../../services/error-handling/error-handling.service';
 import { StoreService } from '../../../services/store/store.service';
 import { UsersService } from '../../../services/users/users.service';
 
@@ -42,28 +44,13 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     private storeService: StoreService,
     private changeDetector: ChangeDetectorRef,
     private creditCardsService: CreditCardService,
-    private router: Router
+    private router: Router,
+    private errorHandlingService: ErrorHandlingService
   ) {}
 
   ngOnInit(): void {
     this.storeService.setSideNavOpened(true);
-
-    this.route.params
-      .pipe(
-        distinctUntilChanged((a: Params, b: Params) => a.id === b.id),
-        switchMap((params: Params) =>
-          this.usersService
-            .getById(params.id)
-            .pipe(tap((user: IUser) => (this.user = user)))
-        ),
-        flatMap((params: Params) =>
-          this.creditCardsService
-            .getByUserId(params.id)
-            .pipe(tap((cards: ICreditCard[]) => (this.cards = cards)))
-        ),
-        takeUntil(this.dispose$)
-      )
-      .subscribe(() => this.changeDetector.markForCheck());
+    this.handleRouteParamsChange();
   }
 
   ngOnDestroy(): void {
@@ -73,5 +60,25 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   showPrivateInfo(): void {
     this.router.navigate(['/users', this.user.id, 'private-info']).catch();
+  }
+
+  private handleRouteParamsChange(): void {
+    this.route.params
+      .pipe(
+        distinctUntilChanged((a: Params, b: Params) => a.id === b.id),
+        switchMap((params: Params) =>
+          this.usersService.getById(params.id).pipe(
+            catchError(this.errorHandlingService.catchError),
+            tap((user: IUser) => (this.user = user))
+          )
+        ),
+        flatMap((params: Params) =>
+          this.creditCardsService
+            .getByUserId(params.id)
+            .pipe(tap((cards: ICreditCard[]) => (this.cards = cards)))
+        ),
+        takeUntil(this.dispose$)
+      )
+      .subscribe(() => this.changeDetector.markForCheck());
   }
 }

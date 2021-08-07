@@ -5,15 +5,24 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { EMPTY, Subject } from 'rxjs';
-import { catchError, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import {
+  catchError,
+  filter,
+  startWith,
+  switchMap,
+  takeUntil,
+} from 'rxjs/operators';
 import { IPagedResource } from '../../../contracts/paged-resource';
 import { IUser } from '../../../contracts/user';
+import { ErrorHandlingService } from '../../../services/error-handling/error-handling.service';
 import { StoreService } from '../../../services/store/store.service';
 import { UsersService } from '../../../services/users/users.service';
+import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-users-table',
@@ -37,39 +46,27 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   totalItems = 0;
   totalPages = 0;
 
+  selectedUser: IUser | null = null;
+
   private readonly dispose$ = new Subject<void>();
   private usersPage$ = new Subject<number>();
+  private deleteUser$ = new Subject<number>();
+  private openDialog$ = new Subject<boolean>();
 
   constructor(
     private usersService: UsersService,
     private snackBar: MatSnackBar,
     private router: Router,
     private storeService: StoreService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private dialog: MatDialog,
+    private errorHandlingService: ErrorHandlingService
   ) {}
 
   ngOnInit(): void {
-    this.usersPage$
-      .pipe(
-        startWith(true),
-        switchMap(() =>
-          this.usersService.getUsers(this.pageSize, this.page).pipe(
-            catchError(() => {
-              this.snackBar.open(
-                'Something went wrong. Try reloading the page.'
-              );
-              return EMPTY;
-            })
-          )
-        ),
-        takeUntil(this.dispose$)
-      )
-      .subscribe((response: IPagedResource<IUser>) => {
-        this.users = response.data;
-        this.totalPages = response.page.totalPages;
-        this.totalItems = response.page.totalItems;
-        this.changeDetector.markForCheck();
-      });
+    this.handlePageDataChange();
+    this.handleSelectedUserChange();
+    this.handleDeleteButtonClick();
   }
 
   ngOnDestroy() {
@@ -96,5 +93,73 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     this.storeService.setSideNavOpened(true);
     this.storeService.setUserProfile(user);
     this.router.navigate(['/users', user.id, 'details']).catch();
+  }
+
+  deleteSelectedUser(): void {
+    this.openDialog$.next();
+  }
+
+  private handleDeleteButtonClick(): void {
+    this.deleteUser$
+      .pipe(
+        filter(() => this.selectedUser?.id != null),
+        // @ts-ignore-next-line
+        switchMap(() =>
+          this.usersService
+            .deleteById(this.selectedUser.id)
+            .pipe(catchError(this.errorHandlingService.catchError))
+        ),
+        takeUntil(this.dispose$)
+      )
+      .subscribe(() => {
+        this.storeService.clearUserProfile();
+        this.storeService.setSideNavOpened(false);
+        this.usersPage$.next();
+        this.snackBar.open('The user has been deleted');
+      });
+
+    this.openDialog$
+      .pipe(
+        switchMap(() =>
+          this.dialog
+            .open(ConfirmDialogComponent)
+            .afterClosed()
+            .pipe(catchError(() => EMPTY))
+        ),
+        takeUntil(this.dispose$)
+      )
+      .subscribe((deleteConfirmed) => {
+        if (deleteConfirmed) {
+          this.deleteUser$.next(this.selectedUser?.id);
+        }
+      });
+  }
+
+  private handlePageDataChange(): void {
+    this.usersPage$
+      .pipe(
+        startWith(true),
+        switchMap(() =>
+          this.usersService
+            .getUsers(this.pageSize, this.page)
+            .pipe(catchError(this.errorHandlingService.catchError))
+        ),
+        takeUntil(this.dispose$)
+      )
+      .subscribe((response: IPagedResource<IUser>) => {
+        this.users = response.data;
+        this.totalPages = response.page.totalPages;
+        this.totalItems = response.page.totalItems;
+        this.changeDetector.markForCheck();
+      });
+  }
+
+  private handleSelectedUserChange(): void {
+    this.storeService.userProfile$
+      .pipe(takeUntil(this.dispose$))
+      .subscribe((user: IUser | null) => {
+        this.selectedUser = user;
+        this.changeDetector.markForCheck();
+      });
   }
 }

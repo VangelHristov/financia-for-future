@@ -34,7 +34,6 @@ import { PrivateInfoComponent } from './private-info/private-info.component';
     MatPaginatorModule,
     MatSnackBarModule,
     MatSidenavModule,
-    MatButtonModule,
     CoreModule,
   ],
   providers: [

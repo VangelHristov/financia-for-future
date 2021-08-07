@@ -41,5 +41,6 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   hideSideNav(): void {
     this.storeService.setSideNavOpened(false);
+    this.storeService.clearUserProfile();
   }
 }

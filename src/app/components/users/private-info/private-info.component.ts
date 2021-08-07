@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
-import { EMPTY, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   catchError,
   distinctUntilChanged,
@@ -20,6 +20,7 @@ import {
 } from 'rxjs/operators';
 import { IPrivateInformation } from '../../../contracts/private-information';
 import { IUser } from '../../../contracts/user';
+import { ErrorHandlingService } from '../../../services/error-handling/error-handling.service';
 import { PrivateInfoService } from '../../../services/private-info/private-info.service';
 import { StoreService } from '../../../services/store/store.service';
 import { UsersService } from '../../../services/users/users.service';
@@ -44,12 +45,27 @@ export class PrivateInfoComponent implements OnInit, OnDestroy {
     private storeService: StoreService,
     private changeDetector: ChangeDetectorRef,
     private usersService: UsersService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private errorHandlingService: ErrorHandlingService
   ) {}
 
   ngOnInit(): void {
     this.storeService.setSideNavOpened(true);
+    this.handleSelectedUserChange();
+    this.handleRouteParamsChange();
+    this.fetchSelectedUser();
+  }
 
+  ngOnDestroy(): void {
+    this.dispose$.next();
+    this.dispose$.complete();
+  }
+
+  hideSideNav(): void {
+    this.storeService.setSideNavOpened(false);
+  }
+
+  private handleSelectedUserChange(): void {
     this.storeService.userProfile$
       .pipe(
         distinctUntilChanged((a, b) => a?.id === b?.id),
@@ -59,7 +75,9 @@ export class PrivateInfoComponent implements OnInit, OnDestroy {
         this.user = user;
         this.changeDetector.markForCheck();
       });
+  }
 
+  private handleRouteParamsChange(): void {
     this.route.params
       .pipe(
         distinctUntilChanged((a: Params, b: Params) => a.id === b.id),
@@ -76,32 +94,15 @@ export class PrivateInfoComponent implements OnInit, OnDestroy {
         takeUntil(this.dispose$)
       )
       .subscribe(() => this.changeDetector.markForCheck());
+  }
 
+  private fetchSelectedUser(): void {
     // This api call is needed in case a user visits the private info url directly without clicking on the table
     this.usersService
       .getById(this.route.snapshot.params.id)
-      .pipe(
-        take(1),
-        catchError(() => {
-          this.storeService.clearUserProfile();
-          this.storeService.setSideNavOpened(false);
-          this.snackBar.open(
-            `Could not find user with id: ${this.route.snapshot.params.id}`
-          );
-          return EMPTY;
-        })
-      )
+      .pipe(take(1), catchError(this.errorHandlingService.catchError))
       .subscribe((user: IUser) => {
         this.storeService.setUserProfile(user);
       });
-  }
-
-  ngOnDestroy(): void {
-    this.dispose$.next();
-    this.dispose$.complete();
-  }
-
-  hideSideNav(): void {
-    this.storeService.setSideNavOpened(false);
   }
 }
