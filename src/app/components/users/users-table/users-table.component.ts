@@ -103,10 +103,10 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     this.deleteUser$
       .pipe(
         filter(() => this.selectedUser?.id != null),
-        // @ts-ignore-next-line
         switchMap(() =>
           this.usersService
-            .deleteById(this.selectedUser.id)
+            // @ts-ignore
+            .deleteById(this.selectedUser?.id)
             .pipe(catchError(this.errorHandlingService.catchError))
         ),
         takeUntil(this.dispose$)
