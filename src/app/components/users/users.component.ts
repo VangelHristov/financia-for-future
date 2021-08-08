@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { StoreService } from '../../services/store/store.service';
@@ -22,7 +23,8 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   constructor(
     private storeService: StoreService,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -42,5 +44,6 @@ export class UsersComponent implements OnInit, OnDestroy {
   hideSideNav(): void {
     this.storeService.setSideNavOpened(false);
     this.storeService.clearUserProfile();
+    this.router.navigate(['/users']).catch();
   }
 }

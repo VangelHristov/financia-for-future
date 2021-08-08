@@ -10,13 +10,13 @@
       "id": 8
     },
     {
-      "id": 9,
       "firstName": "Carrie",
       "middleName": "Astill",
       "lastName": "Innett",
       "streetAddress": "9 Harbort Terrace",
+      "balance": 55423.89,
       "createdAt": "30.11.2018",
-      "balance": 55423.89
+      "id": 9
     },
     {
       "id": 17,
@@ -35,15 +35,6 @@
       "streetAddress": "1 Kinsman Street",
       "createdAt": "15.11.2018",
       "balance": 74036.31
-    },
-    {
-      "id": 22,
-      "firstName": "Issie",
-      "middleName": "Pietesch",
-      "lastName": "Mateo",
-      "streetAddress": "30022 Clarendon Hill",
-      "createdAt": "13.6.2019",
-      "balance": 67016.48
     },
     {
       "id": 23,

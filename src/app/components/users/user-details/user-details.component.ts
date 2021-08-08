@@ -31,7 +31,7 @@ import { UsersService } from '../../../services/users/users.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
-  user!: IUser;
+  user: IUser | null = null;
   cards: ICreditCard[] = [];
 
   @Output() hideDetails = new EventEmitter<void>();
@@ -51,6 +51,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.storeService.setSideNavOpened(true);
     this.handleRouteParamsChange();
+    this.handleSelectedUserChange();
   }
 
   ngOnDestroy(): void {
@@ -59,13 +60,24 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   }
 
   showPrivateInfo(): void {
-    this.router.navigate(['/users', this.user.id, 'private-info']).catch();
+    this.router.navigate(['/users', this.user?.id, 'private-info']).catch();
+  }
+
+  private handleSelectedUserChange(): void {
+    this.storeService.userProfile$
+      .pipe(
+        distinctUntilChanged((a, b) => a?.id === b?.id),
+        takeUntil(this.dispose$)
+      )
+      .subscribe((user: IUser | null) => {
+        this.user = user;
+        this.changeDetector.markForCheck();
+      });
   }
 
   private handleRouteParamsChange(): void {
     this.route.params
       .pipe(
-        distinctUntilChanged((a: Params, b: Params) => a.id === b.id),
         switchMap((params: Params) =>
           this.usersService.getById(params.id).pipe(
             catchError(() => {
