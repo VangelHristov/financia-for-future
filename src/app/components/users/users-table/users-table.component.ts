@@ -190,7 +190,10 @@ export class UsersTableComponent implements OnInit, OnDestroy {
           this.dialog
             .open(UserFormComponent)
             .afterClosed()
-            .pipe(catchError(() => EMPTY))
+            .pipe(
+              filter((value) => value),
+              catchError(() => EMPTY)
+            )
         ),
         flatMap((user: IUser) =>
           this.usersService.updateUser(user).pipe(
