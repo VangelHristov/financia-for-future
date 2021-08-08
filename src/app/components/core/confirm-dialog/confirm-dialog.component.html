@@ -3,6 +3,6 @@
   <p>If you proceed with this action the record will be permanently deleted.</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-button [mat-dialog-close]="false">Cancel</button>
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial color="primary">Delete</button>
 </div>

@@ -5,7 +5,7 @@
       <td *matCellDef="let element" mat-cell>
         <ng-container *ngIf="selectedUser?.id === element.id">
           <i class="fa fa-trash" (click)="$event.stopPropagation(); deleteSelectedUser()"></i>
-          <i class="fa fa-pencil px-10"></i>
+          <i class="fa fa-pencil px-10" (click)="$event.stopPropagation(); editSelectedUser()"></i>
         </ng-container>
         {{element.firstName}} </td>
     </ng-container>

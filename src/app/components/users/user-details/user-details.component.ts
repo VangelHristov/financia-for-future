@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { EMPTY, Subject } from 'rxjs';
 import {
@@ -20,7 +21,6 @@ import {
 import { ICreditCard } from '../../../contracts/credit-card';
 import { IUser } from '../../../contracts/user';
 import { CreditCardService } from '../../../services/credit-card/credit-card.service';
-import { ErrorHandlingService } from '../../../services/error-handling/error-handling.service';
 import { StoreService } from '../../../services/store/store.service';
 import { UsersService } from '../../../services/users/users.service';
 
@@ -45,7 +45,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     private changeDetector: ChangeDetectorRef,
     private creditCardsService: CreditCardService,
     private router: Router,
-    private errorHandlingService: ErrorHandlingService
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -68,7 +68,12 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
         distinctUntilChanged((a: Params, b: Params) => a.id === b.id),
         switchMap((params: Params) =>
           this.usersService.getById(params.id).pipe(
-            catchError(this.errorHandlingService.catchError),
+            catchError(() => {
+              this.storeService.clearUserProfile();
+              this.storeService.setSideNavOpened(false);
+              this.snackBar.open(`Could not fetch user's details.`);
+              return EMPTY;
+            }),
             tap((user: IUser) => (this.user = user))
           )
         ),

@@ -1,0 +1,54 @@
+<form [formGroup]="userForm" *ngIf="userForm" (submit)="handleSubmit()">
+  <div mat-dialog-content>
+    <div>
+      <mat-form-field>
+        <mat-label>User's first name</mat-label>
+        <input matInput placeholder="John" formControlName="firstName" required>
+        <mat-error *ngIf="userForm.controls.firstName.invalid">
+          {{getErrorMessage(userForm.controls.firstName)}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>User's middle name</mat-label>
+        <input matInput placeholder="Doe" formControlName="middleName" required>
+        <mat-error *ngIf="userForm.controls.middleName.invalid">
+          {{getErrorMessage(userForm.controls.middleName)}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>User's last name</mat-label>
+        <input matInput placeholder="Doe" formControlName="lastName" required>
+        <mat-error *ngIf="userForm.controls.lastName.invalid">
+          {{getErrorMessage(userForm.controls.lastName)}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>User's street address</mat-label>
+        <input matInput placeholder="1 Main street" formControlName="streetAddress" required>
+        <mat-error *ngIf="userForm.controls.streetAddress.invalid">
+          {{getErrorMessage(userForm.controls.streetAddress)}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>User's balance</mat-label>
+        <input matInput placeholder="123456.78" formControlName="balance" required>
+        <mat-error *ngIf="userForm.controls.balance.invalid">
+          {{getErrorMessage(userForm.controls.balance)}}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false">Cancel</button>
+    <button mat-button type="submit" cdkFocusInitial color="primary">Save</button>
+  </div>
+</form>

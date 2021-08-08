@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Subject } from 'rxjs';
+import { EMPTY, Subject } from 'rxjs';
 import {
   catchError,
   distinctUntilChanged,
@@ -20,7 +20,6 @@ import {
 } from 'rxjs/operators';
 import { IPrivateInformation } from '../../../contracts/private-information';
 import { IUser } from '../../../contracts/user';
-import { ErrorHandlingService } from '../../../services/error-handling/error-handling.service';
 import { PrivateInfoService } from '../../../services/private-info/private-info.service';
 import { StoreService } from '../../../services/store/store.service';
 import { UsersService } from '../../../services/users/users.service';
@@ -45,8 +44,7 @@ export class PrivateInfoComponent implements OnInit, OnDestroy {
     private storeService: StoreService,
     private changeDetector: ChangeDetectorRef,
     private usersService: UsersService,
-    private snackBar: MatSnackBar,
-    private errorHandlingService: ErrorHandlingService
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -100,7 +98,15 @@ export class PrivateInfoComponent implements OnInit, OnDestroy {
     // This api call is needed in case a user visits the private info url directly without clicking on the table
     this.usersService
       .getById(this.route.snapshot.params.id)
-      .pipe(take(1), catchError(this.errorHandlingService.catchError))
+      .pipe(
+        take(1),
+        catchError(() => {
+          this.storeService.clearUserProfile();
+          this.storeService.setSideNavOpened(false);
+          this.snackBar.open(`Could not fetch user's personal info.`);
+          return EMPTY;
+        })
+      )
       .subscribe((user: IUser) => {
         this.storeService.setUserProfile(user);
       });

@@ -13,16 +13,17 @@ import { EMPTY, Subject } from 'rxjs';
 import {
   catchError,
   filter,
+  flatMap,
   startWith,
   switchMap,
   takeUntil,
 } from 'rxjs/operators';
 import { IPagedResource } from '../../../contracts/paged-resource';
 import { IUser } from '../../../contracts/user';
-import { ErrorHandlingService } from '../../../services/error-handling/error-handling.service';
 import { StoreService } from '../../../services/store/store.service';
 import { UsersService } from '../../../services/users/users.service';
 import { ConfirmDialogComponent } from '../../core/confirm-dialog/confirm-dialog.component';
+import { UserFormComponent } from '../user-form/user-form.component';
 
 @Component({
   selector: 'app-users-table',
@@ -51,7 +52,8 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   private readonly dispose$ = new Subject<void>();
   private usersPage$ = new Subject<number>();
   private deleteUser$ = new Subject<number>();
-  private openDialog$ = new Subject<boolean>();
+  private confirmDelete$ = new Subject<boolean>();
+  private editUser$ = new Subject();
 
   constructor(
     private usersService: UsersService,
@@ -59,14 +61,14 @@ export class UsersTableComponent implements OnInit, OnDestroy {
     private router: Router,
     private storeService: StoreService,
     private changeDetector: ChangeDetectorRef,
-    private dialog: MatDialog,
-    private errorHandlingService: ErrorHandlingService
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
     this.handlePageDataChange();
     this.handleSelectedUserChange();
     this.handleDeleteButtonClick();
+    this.handleEditButtonClick();
   }
 
   ngOnDestroy() {
@@ -96,7 +98,11 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   deleteSelectedUser(): void {
-    this.openDialog$.next();
+    this.confirmDelete$.next();
+  }
+
+  editSelectedUser(): void {
+    this.editUser$.next();
   }
 
   private handleDeleteButtonClick(): void {
@@ -107,7 +113,14 @@ export class UsersTableComponent implements OnInit, OnDestroy {
           this.usersService
             // @ts-ignore
             .deleteById(this.selectedUser?.id)
-            .pipe(catchError(this.errorHandlingService.catchError))
+            .pipe(
+              catchError(() => {
+                this.storeService.clearUserProfile();
+                this.storeService.setSideNavOpened(false);
+                this.snackBar.open(`Could not delete the user.`);
+                return EMPTY;
+              })
+            )
         ),
         takeUntil(this.dispose$)
       )
@@ -118,7 +131,7 @@ export class UsersTableComponent implements OnInit, OnDestroy {
         this.snackBar.open('The user has been deleted');
       });
 
-    this.openDialog$
+    this.confirmDelete$
       .pipe(
         switchMap(() =>
           this.dialog
@@ -140,9 +153,16 @@ export class UsersTableComponent implements OnInit, OnDestroy {
       .pipe(
         startWith(true),
         switchMap(() =>
-          this.usersService
-            .getUsers(this.pageSize, this.page)
-            .pipe(catchError(this.errorHandlingService.catchError))
+          this.usersService.getUsers(this.pageSize, this.page).pipe(
+            catchError(() => {
+              this.storeService.clearUserProfile();
+              this.storeService.setSideNavOpened(false);
+              this.snackBar.open(
+                'Could not fetch the users. Try refreshing the page.'
+              );
+              return EMPTY;
+            })
+          )
         ),
         takeUntil(this.dispose$)
       )
@@ -160,6 +180,35 @@ export class UsersTableComponent implements OnInit, OnDestroy {
       .subscribe((user: IUser | null) => {
         this.selectedUser = user;
         this.changeDetector.markForCheck();
+      });
+  }
+
+  private handleEditButtonClick(): void {
+    this.editUser$
+      .pipe(
+        switchMap(() =>
+          this.dialog
+            .open(UserFormComponent)
+            .afterClosed()
+            .pipe(catchError(() => EMPTY))
+        ),
+        flatMap((user: IUser) =>
+          this.usersService.updateUser(user).pipe(
+            catchError(() => {
+              this.snackBar.open('Could not update the user information.');
+              return EMPTY;
+            })
+          )
+        ),
+        takeUntil(this.dispose$)
+      )
+      .subscribe((user) => {
+        this.storeService.clearUserProfile();
+        this.storeService.setSideNavOpened(false);
+        this.usersPage$.next();
+        this.snackBar.open(
+          `${user.firstName} ${user.lastName}'s information has been updated.`
+        );
       });
   }
 }
