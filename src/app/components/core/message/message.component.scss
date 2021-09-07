@@ -1,10 +1,15 @@
 p {
-  padding: 10px;
+  padding: 10px 10px 10px 0;
   border: 1px solid #dcdcdc;
+  position: relative;
 
   i,
   span {
-    margin-left: 5px;
+    margin-left: 10px;
+  }
+
+  i.fa {
+    border: none;
   }
 
   span {
@@ -13,9 +18,24 @@ p {
 }
 
 .warning {
-  border-left: 4px solid #f55247;
+  border: 2px solid #f55247;
+  color: #f55247;
+}
+
+.info {
+  border: 2px solid #3f51b5;
+  color: #3f51b5;
 }
 
 .success {
-  border-left: 4px solid #3f51b5;
+  border: 2px solid #1d9c73;
+  color: #1d9c73;
+}
+
+.border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin-left: 0 !important;
 }

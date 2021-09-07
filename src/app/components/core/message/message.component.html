@@ -1,5 +1,6 @@
-<p [ngClass]="style" class="mat-elevation-z5">
-    <i class="fa fa-info-circle" aria-hidden="true"></i>
+<p class="mat-elevation-z5">
+    <span class="border" [ngClass]="type"></span>
+    <i [ngClass]="getClasses()" class="fa" aria-hidden="true"></i>
     <span>
         <ng-content></ng-content>
     </span>

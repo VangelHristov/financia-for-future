@@ -6,7 +6,7 @@
   <div>
     <h3>Credit cards:</h3>
     <ng-container *ngIf="!cards || cards.length < 1; else cardsList">
-      <app-message variant="warning">{{user?.firstName}} does not have any credit cards.</app-message>
+      <app-message variant="info">{{user?.firstName}} does not have any credit cards.</app-message>
     </ng-container>
     <ng-template #cardsList>
       <ul>
