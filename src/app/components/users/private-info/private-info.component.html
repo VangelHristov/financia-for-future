@@ -1,9 +1,12 @@
-<h2>Private info: {{user?.firstName}} {{user?.lastName}}</h2>
+<h2>Private info: {{ user?.firstName }} {{ user?.lastName }}</h2>
 <ng-container *ngIf="!privateInformation; else info">
-  <app-message variant="warning">Could not find any private information for {{user?.firstName}}</app-message>
+  <app-message variant="info"
+    >Could not find any private information for
+    {{ user?.firstName }}</app-message
+  >
 </ng-container>
 <ng-template #info>
-  <p>Works in {{privateInformation?.companyName}}</p>
-  <p><i class="fa fa-envelope"></i> {{privateInformation?.email}}</p>
-  <p><i class="fa fa-phone"></i> {{privateInformation?.phoneNumber}}</p>
+  <p>Works in {{ privateInformation?.companyName }}</p>
+  <p><i class="fa fa-envelope"></i> {{ privateInformation?.email }}</p>
+  <p><i class="fa fa-phone"></i> {{ privateInformation?.phoneNumber }}</p>
 </ng-template>

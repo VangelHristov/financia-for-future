@@ -77,6 +77,10 @@ export class UsersTableComponent implements OnInit, OnDestroy {
   }
 
   changePage(pageEvent: PageEvent): void {
+    this.storeService.setSideNavOpened(false);
+    this.storeService.clearUserProfile();
+    this.router.navigate(['/users']).catch();
+
     if (pageEvent.pageSize !== this.pageSize) {
       this.pageSize = pageEvent.pageSize;
       this.page = 1;
