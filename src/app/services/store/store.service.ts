@@ -39,4 +39,8 @@ export class StoreService {
       sideNavOpened,
     });
   }
+
+  hasUserProfile(): boolean {
+    return this.store$.value.userProfile !== null;
+  }
 }

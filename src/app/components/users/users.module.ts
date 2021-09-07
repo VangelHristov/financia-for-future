@@ -10,6 +10,7 @@ import { UsersTableComponent } from './users-table/users-table.component';
 import { UsersComponent } from './users.component';
 import { PrivateInfoComponent } from './private-info/private-info.component';
 import { UserFormComponent } from './user-form/user-form.component';
+import { CanActivateDetails } from './route-guards/canActivateDetails.gurad';
 
 @NgModule({
   declarations: [
