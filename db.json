@@ -46,13 +46,13 @@
       "id": 24
     },
     {
-      "id": 25,
       "firstName": "Mariette",
       "middleName": "Sharply",
       "lastName": "Seden",
       "streetAddress": "14 Farwell Point",
+      "balance": "494537.01",
       "createdAt": "4.5.2019",
-      "balance": 94537.01
+      "id": 25
     },
     {
       "id": 26,
@@ -732,22 +732,604 @@
   ],
   "credit-cards": [
     {
-      "id": 4,
-      "userId": 29,
+      "id": 1,
+      "userId": 73,
       "type": "jcb",
-      "cardNumber": "3535513661534917"
+      "cardNumber": "3579893535707023"
+    },
+    {
+      "id": 2,
+      "userId": 98,
+      "type": "jcb",
+      "cardNumber": "3589718892685330"
+    },
+    {
+      "id": 3,
+      "userId": 83,
+      "type": "jcb",
+      "cardNumber": "3567888383009229"
+    },
+    {
+      "id": 4,
+      "userId": 45,
+      "type": "mastercard",
+      "cardNumber": "5007664884737433"
+    },
+    {
+      "id": 5,
+      "userId": 23,
+      "type": "jcb",
+      "cardNumber": "3563221458251241"
+    },
+    {
+      "id": 6,
+      "userId": 73,
+      "type": "jcb",
+      "cardNumber": "3563714983903518"
+    },
+    {
+      "id": 7,
+      "userId": 70,
+      "type": "jcb",
+      "cardNumber": "3540862427260033"
+    },
+    {
+      "id": 8,
+      "userId": 38,
+      "type": "jcb",
+      "cardNumber": "3580154998437922"
+    },
+    {
+      "id": 9,
+      "userId": 4,
+      "type": "jcb",
+      "cardNumber": "3559880927215792"
+    },
+    {
+      "id": 10,
+      "userId": 43,
+      "type": "diners-club-carte-blanche",
+      "cardNumber": "30457347258390"
+    },
+    {
+      "id": 11,
+      "userId": 39,
+      "type": "diners-club-carte-blanche",
+      "cardNumber": "30450736037061"
+    },
+    {
+      "id": 12,
+      "userId": 60,
+      "type": "mastercard",
+      "cardNumber": "5518240209351366"
+    },
+    {
+      "id": 13,
+      "userId": 72,
+      "type": "china-unionpay",
+      "cardNumber": "5602256470504575949"
+    },
+    {
+      "id": 14,
+      "userId": 60,
+      "type": "maestro",
+      "cardNumber": "5038863638599823281"
+    },
+    {
+      "id": 15,
+      "userId": 12,
+      "type": "jcb",
+      "cardNumber": "3566564845780464"
+    },
+    {
+      "id": 16,
+      "userId": 82,
+      "type": "maestro",
+      "cardNumber": "6762769788490303"
+    },
+    {
+      "id": 17,
+      "userId": 80,
+      "type": "switch",
+      "cardNumber": "490329153432677510"
+    },
+    {
+      "id": 18,
+      "userId": 27,
+      "type": "jcb",
+      "cardNumber": "3554940704140723"
+    },
+    {
+      "id": 19,
+      "userId": 45,
+      "type": "jcb",
+      "cardNumber": "3555834879975337"
+    },
+    {
+      "id": 20,
+      "userId": 60,
+      "type": "jcb",
+      "cardNumber": "3583279955648505"
+    },
+    {
+      "id": 21,
+      "userId": 64,
+      "type": "maestro",
+      "cardNumber": "5893432484191105"
+    },
+    {
+      "id": 22,
+      "userId": 20,
+      "type": "laser",
+      "cardNumber": "63040619120217697"
+    },
+    {
+      "id": 23,
+      "userId": 63,
+      "type": "americanexpress",
+      "cardNumber": "372301181244031"
+    },
+    {
+      "id": 24,
+      "userId": 30,
+      "type": "bankcard",
+      "cardNumber": "5602212397580368"
+    },
+    {
+      "id": 25,
+      "userId": 62,
+      "type": "jcb",
+      "cardNumber": "3560077433639600"
+    },
+    {
+      "id": 26,
+      "userId": 32,
+      "type": "diners-club-carte-blanche",
+      "cardNumber": "30071963175281"
+    },
+    {
+      "id": 27,
+      "userId": 73,
+      "type": "laser",
+      "cardNumber": "67065271594559377"
+    },
+    {
+      "id": 28,
+      "userId": 27,
+      "type": "visa-electron",
+      "cardNumber": "4175006790510612"
+    },
+    {
+      "id": 29,
+      "userId": 30,
+      "type": "diners-club-carte-blanche",
+      "cardNumber": "30386717139213"
+    },
+    {
+      "id": 30,
+      "userId": 72,
+      "type": "switch",
+      "cardNumber": "4936309890266598336"
+    },
+    {
+      "id": 31,
+      "userId": 64,
+      "type": "jcb",
+      "cardNumber": "3572934187486545"
+    },
+    {
+      "id": 32,
+      "userId": 86,
+      "type": "jcb",
+      "cardNumber": "3546064961125508"
+    },
+    {
+      "id": 33,
+      "userId": 31,
+      "type": "jcb",
+      "cardNumber": "3573928602564232"
+    },
+    {
+      "id": 34,
+      "userId": 83,
+      "type": "diners-club-enroute",
+      "cardNumber": "201465818750053"
+    },
+    {
+      "id": 35,
+      "userId": 71,
+      "type": "visa-electron",
+      "cardNumber": "4508715658053097"
+    },
+    {
+      "id": 36,
+      "userId": 60,
+      "type": "jcb",
+      "cardNumber": "3533861394537745"
+    },
+    {
+      "id": 37,
+      "userId": 98,
+      "type": "jcb",
+      "cardNumber": "3584586731994303"
+    },
+    {
+      "id": 38,
+      "userId": 3,
+      "type": "jcb",
+      "cardNumber": "3539144501815609"
+    },
+    {
+      "id": 39,
+      "userId": 10,
+      "type": "switch",
+      "cardNumber": "5641829382754642"
+    },
+    {
+      "id": 40,
+      "userId": 81,
+      "type": "jcb",
+      "cardNumber": "3559543030696395"
+    },
+    {
+      "id": 41,
+      "userId": 84,
+      "type": "jcb",
+      "cardNumber": "3575653674593467"
+    },
+    {
+      "id": 42,
+      "userId": 66,
+      "type": "americanexpress",
+      "cardNumber": "374288191120509"
+    },
+    {
+      "id": 43,
+      "userId": 23,
+      "type": "laser",
+      "cardNumber": "630483146925534530"
+    },
+    {
+      "id": 44,
+      "userId": 80,
+      "type": "maestro",
+      "cardNumber": "6761640694934507911"
+    },
+    {
+      "id": 45,
+      "userId": 25,
+      "type": "jcb",
+      "cardNumber": "3567143299874096"
+    },
+    {
+      "id": 46,
+      "userId": 86,
+      "type": "jcb",
+      "cardNumber": "3542046238483657"
+    },
+    {
+      "id": 47,
+      "userId": 37,
+      "type": "mastercard",
+      "cardNumber": "5563786694405384"
+    },
+    {
+      "id": 48,
+      "userId": 80,
+      "type": "jcb",
+      "cardNumber": "3536151426699417"
+    },
+    {
+      "id": 49,
+      "userId": 14,
+      "type": "diners-club-us-ca",
+      "cardNumber": "5496475376380840"
+    },
+    {
+      "id": 50,
+      "userId": 72,
+      "type": "jcb",
+      "cardNumber": "3565664000573000"
+    },
+    {
+      "id": 51,
+      "userId": 75,
+      "type": "jcb",
+      "cardNumber": "3549614000253906"
+    },
+    {
+      "id": 52,
+      "userId": 33,
+      "type": "jcb",
+      "cardNumber": "3560059834976328"
+    },
+    {
+      "id": 53,
+      "userId": 57,
+      "type": "jcb",
+      "cardNumber": "3575763256769680"
+    },
+    {
+      "id": 54,
+      "userId": 21,
+      "type": "maestro",
+      "cardNumber": "6304699107545066275"
+    },
+    {
+      "id": 55,
+      "userId": 46,
+      "type": "maestro",
+      "cardNumber": "50209357853301487"
     },
     {
       "id": 56,
+      "userId": 38,
+      "type": "diners-club-enroute",
+      "cardNumber": "201415229754236"
+    },
+    {
+      "id": 57,
+      "userId": 58,
+      "type": "mastercard",
+      "cardNumber": "5147165935291462"
+    },
+    {
+      "id": 58,
+      "userId": 56,
+      "type": "bankcard",
+      "cardNumber": "5610645776446562"
+    },
+    {
+      "id": 59,
+      "userId": 76,
+      "type": "jcb",
+      "cardNumber": "3574524114805426"
+    },
+    {
+      "id": 60,
+      "userId": 22,
+      "type": "jcb",
+      "cardNumber": "3575805353042014"
+    },
+    {
+      "id": 61,
+      "userId": 88,
+      "type": "visa-electron",
+      "cardNumber": "4844754652827977"
+    },
+    {
+      "id": 62,
+      "userId": 31,
+      "type": "visa-electron",
+      "cardNumber": "4405524212944310"
+    },
+    {
+      "id": 63,
+      "userId": 93,
+      "type": "jcb",
+      "cardNumber": "3575273318415736"
+    },
+    {
+      "id": 64,
       "userId": 57,
+      "type": "jcb",
+      "cardNumber": "3547524092958365"
+    },
+    {
+      "id": 65,
+      "userId": 79,
+      "type": "diners-club-enroute",
+      "cardNumber": "201591029094005"
+    },
+    {
+      "id": 66,
+      "userId": 40,
       "type": "maestro",
-      "cardNumber": "630414708750488571"
+      "cardNumber": "5038482215507505"
+    },
+    {
+      "id": 67,
+      "userId": 52,
+      "type": "jcb",
+      "cardNumber": "3530952474844888"
+    },
+    {
+      "id": 68,
+      "userId": 88,
+      "type": "jcb",
+      "cardNumber": "3564437307133302"
+    },
+    {
+      "id": 69,
+      "userId": 68,
+      "type": "mastercard",
+      "cardNumber": "5007661336810859"
+    },
+    {
+      "id": 70,
+      "userId": 99,
+      "type": "jcb",
+      "cardNumber": "3542866038241942"
+    },
+    {
+      "id": 71,
+      "userId": 10,
+      "type": "jcb",
+      "cardNumber": "3585102656866309"
+    },
+    {
+      "id": 72,
+      "userId": 100,
+      "type": "visa-electron",
+      "cardNumber": "4844053565473924"
+    },
+    {
+      "id": 73,
+      "userId": 85,
+      "type": "jcb",
+      "cardNumber": "3585847655830843"
+    },
+    {
+      "id": 74,
+      "userId": 31,
+      "type": "visa",
+      "cardNumber": "4017956662175"
+    },
+    {
+      "id": 75,
+      "userId": 53,
+      "type": "americanexpress",
+      "cardNumber": "347335472492786"
+    },
+    {
+      "id": 76,
+      "userId": 46,
+      "type": "jcb",
+      "cardNumber": "3554465554097468"
+    },
+    {
+      "id": 77,
+      "userId": 84,
+      "type": "bankcard",
+      "cardNumber": "5602219660425775"
+    },
+    {
+      "id": 78,
+      "userId": 1,
+      "type": "visa-electron",
+      "cardNumber": "4917468475951185"
+    },
+    {
+      "id": 79,
+      "userId": 52,
+      "type": "mastercard",
+      "cardNumber": "5313065348064316"
+    },
+    {
+      "id": 80,
+      "userId": 16,
+      "type": "jcb",
+      "cardNumber": "3575059590346362"
+    },
+    {
+      "id": 81,
+      "userId": 20,
+      "type": "jcb",
+      "cardNumber": "3583518459386546"
+    },
+    {
+      "id": 82,
+      "userId": 17,
+      "type": "switch",
+      "cardNumber": "6333838046952691"
+    },
+    {
+      "id": 83,
+      "userId": 70,
+      "type": "maestro",
+      "cardNumber": "589308904890264579"
+    },
+    {
+      "id": 84,
+      "userId": 53,
+      "type": "china-unionpay",
+      "cardNumber": "5610772232837116744"
+    },
+    {
+      "id": 85,
+      "userId": 20,
+      "type": "jcb",
+      "cardNumber": "3552382274289527"
+    },
+    {
+      "id": 86,
+      "userId": 17,
+      "type": "mastercard",
+      "cardNumber": "5519310808756536"
+    },
+    {
+      "id": 87,
+      "userId": 2,
+      "type": "americanexpress",
+      "cardNumber": "342866986619386"
+    },
+    {
+      "id": 88,
+      "userId": 2,
+      "type": "jcb",
+      "cardNumber": "3535032961027167"
+    },
+    {
+      "id": 89,
+      "userId": 51,
+      "type": "jcb",
+      "cardNumber": "3555734692954479"
+    },
+    {
+      "id": 90,
+      "userId": 96,
+      "type": "diners-club-carte-blanche",
+      "cardNumber": "30264493107771"
+    },
+    {
+      "id": 91,
+      "userId": 90,
+      "type": "jcb",
+      "cardNumber": "3557841429615022"
+    },
+    {
+      "id": 92,
+      "userId": 32,
+      "type": "jcb",
+      "cardNumber": "3581920898723119"
+    },
+    {
+      "id": 93,
+      "userId": 56,
+      "type": "americanexpress",
+      "cardNumber": "374283593663834"
+    },
+    {
+      "id": 94,
+      "userId": 94,
+      "type": "china-unionpay",
+      "cardNumber": "5602230732046143"
+    },
+    {
+      "id": 95,
+      "userId": 36,
+      "type": "diners-club-enroute",
+      "cardNumber": "201497676168169"
+    },
+    {
+      "id": 96,
+      "userId": 28,
+      "type": "maestro",
+      "cardNumber": "5018942300195106"
+    },
+    {
+      "id": 97,
+      "userId": 21,
+      "type": "jcb",
+      "cardNumber": "3530770895190693"
+    },
+    {
+      "id": 98,
+      "userId": 84,
+      "type": "jcb",
+      "cardNumber": "3582258319014167"
+    },
+    {
+      "id": 99,
+      "userId": 97,
+      "type": "jcb",
+      "cardNumber": "3529676544700936"
     },
     {
       "id": 100,
-      "userId": 96,
-      "type": "china-unionpay",
-      "cardNumber": "5602229145577496"
+      "userId": 71,
+      "type": "jcb",
+      "cardNumber": "3589288917131223"
     }
   ],
   "private-information": [
